@@ -1,0 +1,30 @@
+import sqlite3
+conn=sqlite3.connect('im.db')
+cur=conn.cursor()
+print(' ')
+print('======================================================================')
+n=input('number of items to be add :')
+print(' ')
+print('========================================================================')
+for i in range(n) :
+	item_id=input('enter the id      :')
+	iteam_name=raw_input('enter the name    :')
+	quantity=input('enter the qantity :')
+	price=float(input('price of the item:'))
+	tax=float(input('enter the tax    :'))
+	print('----------------------------------------------------------------------------')
+	sql="INSERT INTO stock(item_id,iteam_name,quantity,price,tax) VALUES(?,?,?,?,?)"
+	cur.execute(sql,(item_id,iteam_name,quantity,price,tax))
+	cur.execute("SELECT * FROM stock")
+	a=cur.fetchall()
+	l=len(a)
+	print(' ')
+	print('--------------------------------------------------------------------')
+	print ('id       ','name       ','quantity    ','price      ','tax')
+	print('---------------------------------------------------------------------')
+	for j in range(0,l) :
+		print(' ')
+		print a[j][0],'\t\t',a[j][1],'\t\t',a[j][2],'\t\t',a[j][3],'\t\t',a[j][4]
+	print('=======================================================================')
+	conn.commit()
+conn.close()
